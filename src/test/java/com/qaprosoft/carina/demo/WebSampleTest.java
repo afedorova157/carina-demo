@@ -15,10 +15,14 @@
  */
 package com.qaprosoft.carina.demo;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.SystemOutLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -44,6 +48,18 @@ import com.qaprosoft.carina.demo.gui.pages.NewsPage;
  * @author qpsdemo
  */
 public class WebSampleTest implements IAbstractTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+    @Test()
+    @MethodOwner(owner = "afedorova")
+    @TestLabel(name = "feature", value = {"web", "regression"})
+    public void testResolution() {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        homePage = new HomePage(getDriver());
+        LOGGER.info("Screen text: " + homePage.getResolutionText());
+    }
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P3)
