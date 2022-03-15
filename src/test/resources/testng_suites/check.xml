@@ -1,0 +1,172 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.40">
+	<actions/>
+	<description>zbr_project: DEF; owner: qpsdemo</description>
+	<logRotator class="hudson.tasks.LogRotator">
+		<daysToKeep>-1</daysToKeep>
+		<numToKeep>30</numToKeep>
+		<artifactDaysToKeep>-1</artifactDaysToKeep>
+		<artifactNumToKeep>-1</artifactNumToKeep>
+	</logRotator>
+	<keepDependencies>false</keepDependencies>
+	<properties>
+		<org.jenkinsci.plugins.workflow.job.properties.DisableResumeJobProperty/>
+		<org.jenkinsci.plugins.workflow.job.properties.DurabilityHintJobProperty>
+			<hint>PERFORMANCE_OPTIMIZED</hint>
+		</org.jenkinsci.plugins.workflow.job.properties.DurabilityHintJobProperty>
+		<hudson.model.ParametersDefinitionProperty>
+			<parameterDefinitions>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>job_type</name>
+					<description></description>
+					<defaultValue>ios</defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>provider</name>
+					<description>hub provider name</description>
+					<defaultValue>mcloud</defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>repoUrl</name>
+					<description>repository url</description>
+					<defaultValue>https://github.com/qaprosoft/carina-demo.git</defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>sub_project</name>
+					<description></description>
+					<defaultValue>.</defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>suite</name>
+					<description></description>
+					<defaultValue>ios-preferences</defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>ci_parent_url</name>
+					<description></description>
+					<defaultValue></defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>ci_parent_build</name>
+					<description></description>
+					<defaultValue></defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<jp.ikedam.jenkins.plugins.extensible__choice__parameter.ExtensibleChoiceParameterDefinition plugin="extensible-choice-parameter@1.7.0">
+					<name>ci_run_id</name>
+					<description></description>
+					<editable>true</editable>
+					<choiceListProvider class="jp.ikedam.jenkins.plugins.extensible_choice_parameter.SystemGroovyChoiceListProvider">
+						<groovyScript plugin="script-security@1.75">
+							<script>import static java.util.UUID.randomUUID
+								return [randomUUID()]</script>
+							<sandbox>true</sandbox>
+						</groovyScript>
+						<usePredefinedVariables>false</usePredefinedVariables>
+					</choiceListProvider>
+				</jp.ikedam.jenkins.plugins.extensible__choice__parameter.ExtensibleChoiceParameterDefinition>
+				<jp.ikedam.jenkins.plugins.extensible__choice__parameter.ExtensibleChoiceParameterDefinition plugin="extensible-choice-parameter@1.7.0">
+					<name>BuildPriority</name>
+					<description>Priority of execution. Lower number means higher priority</description>
+					<editable>true</editable>
+					<choiceListProvider class="jp.ikedam.jenkins.plugins.extensible_choice_parameter.GlobalTextareaChoiceListProvider">
+						<whenToAdd>Triggered</whenToAdd>
+						<name>gc_BUILD_PRIORITY</name>
+						<defaultChoice>3</defaultChoice>
+					</choiceListProvider>
+				</jp.ikedam.jenkins.plugins.extensible__choice__parameter.ExtensibleChoiceParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>failure_email_list</name>
+					<description></description>
+					<defaultValue></defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>failure_email_pass_rate_threshold</name>
+					<description></description>
+					<defaultValue></defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>overrideFields</name>
+					<description></description>
+					<defaultValue></defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<com.wangyin.parameter.WHideParameterDefinition plugin="hidden-parameter@0.0.4">
+					<name>zafiraFields</name>
+					<description></description>
+					<defaultValue></defaultValue>
+				</com.wangyin.parameter.WHideParameterDefinition>
+				<jp.ikedam.jenkins.plugins.extensible__choice__parameter.ExtensibleChoiceParameterDefinition plugin="extensible-choice-parameter@1.7.0">
+					<name>env</name>
+					<description>Environment to test against</description>
+					<editable>true</editable>
+					<choiceListProvider class="jp.ikedam.jenkins.plugins.extensible_choice_parameter.TextareaChoiceListProvider">
+						<choiceList>
+							<string>DEMO</string>
+						</choiceList>
+						<defaultChoice>DEMO</defaultChoice>
+					</choiceListProvider>
+				</jp.ikedam.jenkins.plugins.extensible__choice__parameter.ExtensibleChoiceParameterDefinition>
+				<hudson.model.BooleanParameterDefinition>
+					<name>fork</name>
+					<description>Reuse forked repository.</description>
+					<defaultValue>false</defaultValue>
+				</hudson.model.BooleanParameterDefinition>
+				<hudson.model.BooleanParameterDefinition>
+					<name>auto_screenshot</name>
+					<description>Generate screenshots automatically during the test</description>
+					<defaultValue>true</defaultValue>
+				</hudson.model.BooleanParameterDefinition>
+				<hudson.model.StringParameterDefinition>
+					<name>capabilities</name>
+					<description>Reserved for any semicolon separated W3C driver capabilities.</description>
+					<defaultValue>bundleId=com.apple.Preferences;platformName=iOS;deviceName=ANY</defaultValue>
+					<trim>false</trim>
+				</hudson.model.StringParameterDefinition>
+				<hudson.model.StringParameterDefinition>
+					<name>branch</name>
+					<description>repository branch to run against</description>
+					<defaultValue>master</defaultValue>
+					<trim>false</trim>
+				</hudson.model.StringParameterDefinition>
+				<hudson.model.StringParameterDefinition>
+					<name>thread_count</name>
+					<description>number of threads, number</description>
+					<defaultValue>1</defaultValue>
+					<trim>false</trim>
+				</hudson.model.StringParameterDefinition>
+				<hudson.model.StringParameterDefinition>
+					<name>email_list</name>
+					<description>List of Users to be emailed after the test</description>
+					<defaultValue></defaultValue>
+					<trim>false</trim>
+				</hudson.model.StringParameterDefinition>
+				<hudson.model.ChoiceParameterDefinition>
+					<name>retry_count</name>
+					<description>Number of Times to Retry a Failed Test</description>
+					<choices class="java.util.Arrays$ArrayList">
+						<a class="string-array">
+							<string>0</string>
+							<string>1</string>
+							<string>2</string>
+							<string>3</string>
+						</a>
+					</choices>
+				</hudson.model.ChoiceParameterDefinition>
+				<hudson.model.BooleanParameterDefinition>
+					<name>rerun_failures</name>
+					<description>During &quot;Rebuild&quot; pick it to execute only failed cases</description>
+					<defaultValue>false</defaultValue>
+				</hudson.model.BooleanParameterDefinition>
+			</parameterDefinitions>
+		</hudson.model.ParametersDefinitionProperty>
+		<com.synopsys.arc.jenkins.plugins.ownership.jobs.JobOwnerJobProperty plugin="ownership@0.13.0"/>
+	</properties>
+	<definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.87">
+		<script>@Library(&apos;Zebrunner-CE@develop&apos;)
+			import com.zebrunner.jenkins.pipeline.runner.maven.TestNG;
+			new com.zebrunner.jenkins.pipeline.runner.maven.TestNG(this).runJob()</script>
+		<sandbox>true</sandbox>
+	</definition>
+	<triggers/>
+	<authToken>ciStart</authToken>
+	<disabled>false</disabled>
+</flow-definition>
