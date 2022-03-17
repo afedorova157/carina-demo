@@ -12,7 +12,7 @@
 
 	<parameter name="jenkinsPipelineEnvironments" value="DEMO"/>
 	<parameter name="jenkinsJobExecutionMode" value="continue"/>
-	<parameter name="extensibleChoice::run_name::my" value="import static java.util.UUID.randomUUID\nreturn [randomUUID()]" />
+	<parameter name="extensibleChoice::run_name::my" value="" />
 	<parameter name="stringParam::snapshot_build::Snapshot build param name" value="" />
 	<parameter name="stringParam::snapshot_build_path::Snapshot build param name" value="/" />
 
