@@ -12,9 +12,7 @@
 
 	<parameter name="jenkinsPipelineEnvironments" value="DEMO"/>
 	<parameter name="jenkinsJobExecutionMode" value="continue"/>
-	<parameter name="addExtensibleChoice::testrail_run_name::my" value="import static java.util.Calendar.*
-	def date = new Date().format('MM/dd/yyy')
-	return ['Reviews_pages_release_run_WEB_' + date]" />
+	<parameter name="extensibleChoice::testrail_run_name::my" value="import static java.util.Calendar.*\ndef date = new Date().format('MM/dd/yyy')\nreturn ['Reviews_pages_release_run_WEB_' + date]" />
 	<parameter name="stringParam::snapshot_build::Snapshot build param name" value="" />
 	<parameter name="stringParam::snapshot_build_path::Snapshot build param name" value="/" />
 
